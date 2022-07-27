@@ -1,10 +1,9 @@
 import React from 'react'
 import { AppProps } from 'next/app'
-import { ThemeProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
+import ThemeContainer from '../contexts/theme/ThemeContainer'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import theme from '../styles/theme'
-import createEmotionCache from '../styles/createEmotionCache'
+import createEmotionCache from '../../config/createEmotionCache'
+import Head from 'next/head'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -12,7 +11,7 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
 
-export default function MyApp(props: MyAppProps) {
+function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   React.useEffect(() => {
@@ -24,10 +23,14 @@ export default function MyApp(props: MyAppProps) {
 
   return (
     <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <ThemeContainer>
         <Component {...pageProps} />
-      </ThemeProvider>
+      </ThemeContainer>
     </CacheProvider>
   )
 }
+
+export default MyApp

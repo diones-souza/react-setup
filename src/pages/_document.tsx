@@ -2,14 +2,13 @@ import * as React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
 import theme from '../styles/theme'
-import createEmotionCache from '../styles/createEmotionCache'
+import createEmotionCache from '../../config/createEmotionCache'
 
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <Head>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
