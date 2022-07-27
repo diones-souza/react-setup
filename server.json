@@ -1,0 +1,24 @@
+{
+  "users":[
+    {
+      "id":1,
+      "name":"Diones",
+      "email":"diones.souza@gmail.com"
+    },
+    {
+      "id":2,
+      "name":"Caio",
+      "email":"caio.souza@gmail.com"
+    },
+    {
+      "id":3,
+      "name":"Jhuli",
+      "email":"jhuli.souza@gmail.com"
+    },
+    {
+      "id":4,
+      "name":"Arthur",
+      "email":"arthur.souza@gmail.com"
+    }
+  ]
+}
