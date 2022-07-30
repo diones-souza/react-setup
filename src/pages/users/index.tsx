@@ -1,6 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { useFetch } from '../../hooks/useFetch'
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
+import LinearProgress from '@mui/material/LinearProgress'
+import CustomNoRowsOverlay from '../../components/table/CustomNoRowsOverlay'
 
 interface User {
   id: number
@@ -9,14 +12,34 @@ interface User {
 }
 
 const Users: NextPage = () => {
-  const { data } = useFetch<User[]>('users')
+  const { data, error } = useFetch<User[]>('http://localhost:3333/posts')
+
+  let loading = true
+
+  if (data || error) {
+    loading = false
+  }
+
+  const rows: GridRowsProp = data || []
+  const columns: GridColDef[] = [
+    { field: 'name', headerName: 'Name', width: 150 },
+    { field: 'email', headerName: 'E-mail', width: 150 }
+  ]
 
   return (
-    <ul>
-      {data?.map(item => (
-        <li key={item.id}>{item.name}</li>
-      ))}
-    </ul>
+    <div style={{ height: '50vh' }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        loading={loading}
+        checkboxSelection
+        disableSelectionOnClick
+        components={{
+          LoadingOverlay: LinearProgress,
+          NoRowsOverlay: CustomNoRowsOverlay
+        }}
+      />
+    </div>
   )
 }
 
