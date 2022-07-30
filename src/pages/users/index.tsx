@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import { useFetch } from '../../hooks/useFetch'
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import { LinearProgress, Paper } from '@mui/material'
-import CustomNoRowsOverlay from '../../components/table/CustomNoRowsOverlay'
+import CustomNoRowsOverlay from '../../components/Table/CustomNoRowsOverlay'
 
 interface User {
   id: number
