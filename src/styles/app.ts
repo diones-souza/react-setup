@@ -1,5 +1,5 @@
 import { Theme, CSSObject } from '@mui/material/styles'
-import { drawerWidth } from '../components/drawer'
+import { drawerWidth } from '../components/Drawer'
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
