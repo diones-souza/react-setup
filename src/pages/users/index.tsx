@@ -12,7 +12,7 @@ interface User {
 }
 
 const Users: NextPage = () => {
-  const { data, error } = useFetch<User[]>('http://localhost:3333/posts')
+  const { data, error } = useFetch<User[]>('http://localhost:3333/users')
 
   let loading = true
 
