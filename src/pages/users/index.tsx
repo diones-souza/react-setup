@@ -2,7 +2,7 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { useFetch } from '../../hooks/useFetch'
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
-import LinearProgress from '@mui/material/LinearProgress'
+import { LinearProgress, Paper } from '@mui/material'
 import CustomNoRowsOverlay from '../../components/table/CustomNoRowsOverlay'
 
 interface User {
@@ -27,19 +27,21 @@ const Users: NextPage = () => {
   ]
 
   return (
-    <div style={{ height: '50vh' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        loading={loading}
-        checkboxSelection
-        disableSelectionOnClick
-        components={{
-          LoadingOverlay: LinearProgress,
-          NoRowsOverlay: CustomNoRowsOverlay
-        }}
-      />
-    </div>
+    <Paper>
+      <div style={{ height: '50vh' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          loading={loading}
+          checkboxSelection
+          disableSelectionOnClick
+          components={{
+            LoadingOverlay: LinearProgress,
+            NoRowsOverlay: CustomNoRowsOverlay
+          }}
+        />
+      </div>
+    </Paper>
   )
 }
 
