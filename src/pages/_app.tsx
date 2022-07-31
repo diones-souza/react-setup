@@ -7,7 +7,6 @@ import {
   Box,
   Toolbar,
   List,
-  Typography,
   Divider,
   IconButton,
   ListItem,
