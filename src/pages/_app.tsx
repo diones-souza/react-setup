@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { AppProps } from 'next/app'
 import {
@@ -19,11 +20,12 @@ import MenuIcon from '@mui/icons-material/Menu'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 
-import ThemeContainer from '../contexts/theme/ThemeContainer'
+import ThemeContainer from '../shared/theme/ThemeContainer'
 import createEmotionCache from '../../config/createEmotionCache'
-import { DrawerHeader, Drawer } from '../components/Drawer'
+import { DrawerHeader, Drawer } from '../shared/components/Drawer'
 import logo from '../assets/images/logo.svg'
 import Image from 'next/image'
+import AuthProvider from '../shared/contexts/AuthContext'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -39,6 +41,13 @@ function MyApp(props: MyAppProps) {
   const handleDrawer = () => {
     setOpen(!open)
   }
+
+  const login = '/login'
+
+  const router = useRouter()
+  const { route } = router
+
+  console.log(route)
 
   React.useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
@@ -56,7 +65,10 @@ function MyApp(props: MyAppProps) {
         <Box sx={{ display: 'flex' }}>
           <AppBar
             position="fixed"
-            sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
+            sx={{
+              zIndex: theme => theme.zIndex.drawer + 1,
+              display: route === login ? 'none' : ''
+            }}
           >
             <Toolbar>
               <IconButton
@@ -74,7 +86,13 @@ function MyApp(props: MyAppProps) {
             </Toolbar>
           </AppBar>
           <Hidden mdDown={open}>
-            <Drawer variant="permanent" open={open}>
+            <Drawer
+              variant="permanent"
+              open={open}
+              sx={{
+                display: route === login ? 'none' : ''
+              }}
+            >
               <DrawerHeader />
               <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map(
@@ -140,7 +158,11 @@ function MyApp(props: MyAppProps) {
             </Drawer>
           </Hidden>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            <DrawerHeader />
+            <DrawerHeader
+              sx={{
+                display: route === login ? 'none' : ''
+              }}
+            />
             <Component {...pageProps} />
           </Box>
         </Box>

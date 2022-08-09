@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react'
 import type { NextPage } from 'next'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import theme from '../../styles/theme'
+import theme from '../styles/theme'
 
 interface Props {
   children: any

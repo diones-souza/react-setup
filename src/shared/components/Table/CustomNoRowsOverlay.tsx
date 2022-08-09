@@ -73,4 +73,4 @@ function CustomNoRowsOverlay() {
   )
 }
 
-export default CustomNoRowsOverlay
+export { CustomNoRowsOverlay }

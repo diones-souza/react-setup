@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { useFetch } from '../../hooks/useFetch'
+import { useFetch } from '../../shared/hooks/useFetch'
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import { LinearProgress, Paper } from '@mui/material'
-import CustomNoRowsOverlay from '../../components/Table/CustomNoRowsOverlay'
+import { CustomNoRowsOverlay, Notify } from '../../shared/components'
 
 interface User {
   id: number
@@ -12,13 +12,14 @@ interface User {
 }
 
 const Users: NextPage = () => {
-  const { data, error } = useFetch<User[]>('http://localhost:3333/users')
+  const [open, setOpen] = useState(false)
+  const { data, error, isValidating } = useFetch<User[]>('users')
 
-  let loading = true
-
-  if (data || error) {
-    loading = false
-  }
+  useEffect(() => {
+    if (error) {
+      setOpen(true)
+    }
+  }, [error])
 
   const rows: GridRowsProp = data || []
   const columns: GridColDef[] = [
@@ -28,11 +29,29 @@ const Users: NextPage = () => {
 
   return (
     <Paper>
+      <div>
+        {/* <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          open={open}
+          autoHideDuration={6000}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            {error?.message}
+          </Alert>
+        </Snackbar> */}
+        <Notify
+          open={open}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          autoHideDuration={10}
+        >
+          {error?.message}
+        </Notify>
+      </div>
       <div style={{ height: '50vh' }}>
         <DataGrid
           rows={rows}
           columns={columns}
-          loading={loading}
+          loading={isValidating}
           checkboxSelection
           disableSelectionOnClick
           components={{
